@@ -1,7 +1,11 @@
+//  Selects the form elements.
 const form = document.querySelector("form")
 const amount = document.getElementById("amount")
 const expense = document.getElementById("expense")
 const category = document.getElementById("category")
+
+// Selects elements from the list.
+const expenseList = document.querySelector("ul")
 
 // checks all changes that occur in amount input
 amount.oninput = () => {
@@ -37,5 +41,31 @@ form.onsubmit = (event) => {
     amount: amount.value,
     created_at: new Date(),
   }
-  console.log(newExpense)
+  expenseAdd(newExpense)
+}
+
+// call the function that will create the item in the list.
+function expenseAdd(newExpense) {
+  try {
+    // Create the element to add to the list.
+    const expenseItem = document.createElement("li")
+    // Add list style class.
+    expenseItem.classList.add("expense")
+
+    // Create image element.
+    const expenseIcon = document.createElement("img")
+    // Set image attributes dynamically.
+    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+    expenseIcon.setAttribute("alt", newExpense.category_name)
+    
+
+    // Add the information to the item.
+    expenseItem.append(expenseIcon)
+
+    // Add the item (li) to list (ul).
+    expenseList.append(expenseItem)
+
+  } catch (error) {
+    console.log(error)
+  }
 }
