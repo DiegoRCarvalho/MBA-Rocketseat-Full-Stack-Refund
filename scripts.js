@@ -57,10 +57,22 @@ function expenseAdd(newExpense) {
     // Set image attributes dynamically.
     expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
     expenseIcon.setAttribute("alt", newExpense.category_name)
+
+    const expenseInfo = document.createElement("div")
+    expenseInfo.classList.add("expense-info")
+
+    const expenseName = document.createElement("strong")
+    expenseName.textContent = newExpense.expense
+
+    const expenseCategory = document.createElement("span")
+    expenseCategory.textContent = newExpense.category_name
     
 
+    // Add name and category in expense-info div.
+    expenseInfo.append(expenseName, expenseCategory)
+
     // Add the information to the item.
-    expenseItem.append(expenseIcon)
+    expenseItem.append(expenseIcon, expenseInfo)
 
     // Add the item (li) to list (ul).
     expenseList.append(expenseItem)
