@@ -6,6 +6,7 @@ const category = document.getElementById("category")
 
 // Selects elements from the list.
 const expenseList = document.querySelector("ul")
+const expensesTotal = document.querySelector("aside header h2")
 const expenseQuantity = document.querySelector("aside header p span")
 
 // checks all changes that occur in amount input
@@ -101,8 +102,31 @@ function updateTotals(){
   try {
     // Check how many children the UL element has, thus finding out the number of items in the list.
     const items = expenseList.children    
-    console.log(items, items.length)
-    expenseQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
+     expenseQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
+
+    // Go through the items on the list, adding up the expenses.
+    let total = 0
+    for (let item = 0; item < items.length; item++) {
+      const itemAmount = items[item].querySelector(".expense-amount")
+
+      //  Remove non-numeric characters and replace comma with period.
+      let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
+      value = parseFloat(value)
+
+      total += Number(value)
+    }
+
+    // Create smal with stylized R$.
+    const symbolBRL = document.createElement("small")
+    symbolBRL.textContent = "R$"
+
+    // Formats the total and removes the R$
+    total = formatCurrencyBRL(total).toUpperCase().replace("R$", "")
+
+    //  Clear element content.
+    expensesTotal.innerHTML = ""
+
+    expensesTotal.append(symbolBRL, total)
 
   } catch (error) {
     console.log(error)
