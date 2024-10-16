@@ -132,3 +132,18 @@ function updateTotals(){
     console.log(error)
   }
 }
+
+// Capture the click event on list items.
+expenseList.addEventListener("click", function(event){
+
+  // Check if the element clicked is the remove icon.
+  if (event.target.classList.contains("remove-icon")) {
+    
+    // Gets the parent li of the clicked element.
+    const item = event.target.closest(".expense")
+    item.remove()
+  }
+
+  updateTotals()
+
+})
