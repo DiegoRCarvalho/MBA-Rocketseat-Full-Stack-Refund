@@ -6,6 +6,7 @@ const category = document.getElementById("category")
 
 // Selects elements from the list.
 const expenseList = document.querySelector("ul")
+const expenseQuantity = document.querySelector("aside header p span")
 
 // checks all changes that occur in amount input
 amount.oninput = () => {
@@ -86,6 +87,22 @@ function expenseAdd(newExpense) {
 
     // Add the item (li) to list (ul).
     expenseList.append(expenseItem)
+
+    // Updates the totals
+    updateTotals()
+
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function updateTotals(){
+  try {
+    // Check how many children the UL element has, thus finding out the number of items in the list.
+    const items = expenseList.children    
+    console.log(items, items.length)
+    expenseQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
 
   } catch (error) {
     console.log(error)
